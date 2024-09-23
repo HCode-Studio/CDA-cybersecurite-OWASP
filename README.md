@@ -10,7 +10,7 @@ Nous allons découvrir comment exploiter des failles de sécurité, puis comment
 Ce sera l'opportunité d'apprendre à travers des défis. Certains que nous réussiront, d'autres que nous ne franchirons pas. Mais toujours dans l'objectif de comprendre ce que l'on fait et pourquoi on le fait.
 
 ## Lundi
-#### Matin
+### Matin
   - Introduction
     - Pourquoi la sécurité est cruciale : Discussion sur l'importance de la sécurité dans le développement des applications.
 
@@ -51,17 +51,21 @@ Ce sera l'opportunité d'apprendre à travers des défis. Certains que nous réu
         3. Histoire du hachage MD5 et alternatives modernes
      - Groupe 4
         1. Quelques hacks notoires
-#### Après midi
+### Après midi
   **Les Injections SQL**
+  
   Présentation
-  Exercices Red Team
-    - https://www.root-me.org/fr/Challenges/Web-Serveur/SQL-injection-Authentification?q=%2Ffr%2FChallenges%2FWeb-Serveur%2FSQL-injection-authentification
-    - https://www.root-me.org/fr/Challenges/Web-Serveur/SQL-injection-String
-    - *Ajout d'un exercices custom*
-  Exercices Blue team 
-    -  Comment prévenir d'une faille sql ?
-    -  Comment nos frameworks font pour se protèger de ces failles ?
-    - Comment réagir suite à une attaque par injections SQL ?
+  [Présentation injection sql]()
+  
+  Exercices Red Team : 
+  - [RootMe Injection authentification](https://www.root-me.org/fr/Challenges/Web-Serveur/SQL-injection-Authentification?q=%2Ffr%2FChallenges%2FWeb-Serveur%2FSQL-injection-authentification)
+  - [RootMe Injection String](https://www.root-me.org/fr/Challenges/Web-Serveur/SQL-injection-String)
+  - *Ajout d'un exercices custom*
+    
+  Exercices Blue team (débat ouvert) : 
+  - Comment prévenir d'une faille sql ?
+  - Comment nos frameworks font pour se protèger de ces failles ?
+  - Comment réagir suite à une attaque par injections SQL ?
 
 
 ## Mardi
