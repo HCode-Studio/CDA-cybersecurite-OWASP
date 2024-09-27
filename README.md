@@ -58,9 +58,9 @@ Ce sera l'opportunité d'apprendre à travers des défis. Certains que nous réu
   [Présentation injection sql]()
   
   Exercices Red Team : 
+  - [PortSwigger - SQL Injection](https://portswigger.net/web-security/sql-injection)
   - [RootMe Injection authentification](https://www.root-me.org/fr/Challenges/Web-Serveur/SQL-injection-Authentification?q=%2Ffr%2FChallenges%2FWeb-Serveur%2FSQL-injection-authentification)
   - [RootMe Injection String](https://www.root-me.org/fr/Challenges/Web-Serveur/SQL-injection-String)
-  - *Ajout d'un exercices custom*
     
   Exercices Blue team (débat ouvert) : 
   - Comment prévenir d'une faille sql ?
@@ -71,4 +71,6 @@ Ce sera l'opportunité d'apprendre à travers des défis. Certains que nous réu
 ## Mardi
 ## Mercredi
 ## Jeudi
+Hack ConnectX
 ## Vendredi
+Hack ConnectX
