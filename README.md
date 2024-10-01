@@ -1,4 +1,4 @@
-La méthode OWASP [​](#la-methode-owasp)
+OWASP
 =======================================
 
 Table des matières
@@ -510,7 +510,8 @@ _Exemple :_
 
 ### Mais, une faille c’est quoi ? [​](#mais-une-faille-c-est-quoi)
 
-![Une faille](/assets/faille.h5-JkXzS.png)
+![image](https://github.com/user-attachments/assets/ac12e5d0-a7b9-4b04-80f4-f8da065cdb02)
+
 
 L'idée d'OWASP, c'est de former pour comprendre les failles afin de ne plus les produire involontairement… Et surtout avec OWASP on parle de **vulnérabilité, et non de risque**.
 
@@ -522,6 +523,7 @@ Les outils OWASP [​](#les-outils-owasp)
 *   WebScarab (Audit)
 *   OWASP Testing guide (Guide pour voir le niveau de sécu)
 *   OWASP Code Review guide (Méthode d’audit)
+*   OWASP ZAP (un scanner de sécurité d'application Web open source)
 
 La formation [​](#la-formation)
 -------------------------------
@@ -543,4 +545,5 @@ La formation prend également la forme de **sensibilisation** :
 Synthèse OWASP [​](#synthese-owasp)
 -----------------------------------
 
-![](/assets/tableau.P1lFRkSb.png)
+![image](https://github.com/user-attachments/assets/b0704d65-6200-4124-a680-1a281f21c137)
+
