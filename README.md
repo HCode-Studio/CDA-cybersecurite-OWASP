@@ -290,7 +290,7 @@ Une session en paramètre GET == ⚠️. Si vous partagez le lien, n'importe qui
 
 #### Comment corriger ? [​](#comment-corriger-1)
 
-*   Toujours utiliser des sessions cryptées.
+*   Toujours utiliser des sessions chiffrées.
 *   Toujours utiliser des sessions avec un identifiant unique.
 *   Toujours utiliser des sessions avec un TTL (Time To Live).
 
