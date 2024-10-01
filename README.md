@@ -1,76 +1,546 @@
-# Programme
+La méthode OWASP [​](#la-methode-owasp)
+=======================================
 
-Cette semaine un peu spéciale comporte des objectifs que l'on peut atteindre en théorie sans peine : il suffit de savoir utiliser les mécanismes natifs de protection des frameworks. 
-Mais à quoi bon savoir les utiliser si on ne comprend pas à quoi ils servent, et comment ils fonctionnent ? 
-La sécurité web est un domaine qui progresse parallèlement à la programmation, dans un espace discret. Si on ne regarde pas, il est presque difficile d'imaginer l'ampleur des événements qui ont lieu sous nos yeux. C'est une course constante et perdue d'avance sur laquelle nous avons une vision retardée, celle des défenseurs : Blue Team.
-Cette semaine sera l'occasion de passer aussi de l'autre côté. Du côté obscur. En devenant une Red Team.
+Table des matières
 
-Nous verrons un petit bout d'histoire ( très subjectif ) de la sécurité à travers des profils et des événements qui m'ont personnellement marqué.
-Nous allons découvrir comment exploiter des failles de sécurité, puis comment s'en défendre. 
-Ce sera l'opportunité d'apprendre à travers des défis. Certains que nous réussiront, d'autres que nous ne franchirons pas. Mais toujours dans l'objectif de comprendre ce que l'on fait et pourquoi on le fait.
+*   [Comment se tenir à jour ?](#comment-se-tenir-a-jour)
+*   [Les grandes catégories à connaître](#les-grandes-categories-a-connaitre)
+*   [L'authentication](#l-authentication)
+*   [Les mots de passe](#les-mots-de-passe)
+*   [Les risques du SSO](#les-risques-du-sso)
+    *   [Principes de base](#principes-de-base)
+    *   [Des algorithmes : Le bcrypt](#des-algorithmes-le-bcrypt)
+*   [Résumé :](#resume)
+*   [Authentification à plusieurs facteurs](#authentification-a-plusieurs-facteurs)
+    *   [Les impacts liés à la sécurité](#les-impacts-lies-a-la-securite)
+    *   [Les types de failles](#les-types-de-failles)
+    *   [Le Social Engineering](#le-social-engineering)
+*   [Intégrer la sécurité à toutes les étapes](#integrer-la-securite-a-toutes-les-etapes)
+*   [L'observabilité](#l-observabilite)
+    *   [Assurer la qualité](#assurer-la-qualite)
+    *   [Open Web Application Security Project (OWASP)](#open-web-application-security-project-owasp)
+    *   [Top 10 : Simplifié](#top-10-simplifie)
+    *   [Les failles](#les-failles)
+    *   [Les Injections](#les-injections)
+    *   [Violation de Gestion d’Authentification et de Session](#violation-de-gestion-d-authentification-et-de-session)
+    *   [Cross-Site Scripting (XSS)](#cross-site-scripting-xss)
+    *   [Références directes non sécurisées à un objet](#references-directes-non-securisees-a-un-objet)
+    *   [Mauvaise configuration Sécurité](#mauvaise-configuration-securite)
+    *   [Exposition de données sensibles](#exposition-de-donnees-sensibles)
+    *   [Manque de contrôle d’accès au niveau fonctionnel](#manque-de-controle-d-acces-au-niveau-fonctionnel)
+    *   [Falsification de requête intersite (CSRF)](#falsification-de-requete-intersite-csrf)
+    *   [Utilisation de composants avec des vulnérabilités connues](#utilisation-de-composants-avec-des-vulnerabilites-connues)
+    *   [Redirections et Renvois non validés](#redirections-et-renvois-non-valides)
+    *   [Mais, une faille c’est quoi ?](#mais-une-faille-c-est-quoi)
+*   [Les outils OWASP](#les-outils-owasp)
+*   [La formation](#la-formation)
+*   [Synthèse OWASP](#synthese-owasp)
 
-## Lundi
-### Matin
-  - Introduction
-    - Pourquoi la sécurité est cruciale : Discussion sur l'importance de la sécurité dans le développement des applications.
+Comment se tenir à jour ? [​](#comment-se-tenir-a-jour)
+-------------------------------------------------------
 
-      Protéger les données sensibles
-      Prévenir les atteintes à la vie privée
-      Éviter les pertes financières
-      Maintenir la confiance des utilisateurs
-      Respecter les réglementations
-      
-    - Concepts de base et terminologies : Vulnérabilité, menace, attaque, risque et sécurité.
+Prévenir plutôt que guérir… Quelques sites à surveiller :
 
-      Vulnérabilité : Faiblesse dans un système qui peut être exploitée.
-      Menace : Potentiel de source de danger pour une vulnérabilité.
-      Attaque : Action d'exploitation d'une vulnérabilité par une menace.
-      Risque : Potentiel de perte ou de dommage lorsqu'une menace exploite une vulnérabilité.
-      Sécurité : Ensemble des mesures prises pour protéger contre les menaces.
-      
-    - Exemples d'attaques réelles
-      
-      Stuxnet (2010) : Ver informatique (malware) créé par la NSA et l'unité 8200 visant les central nucléaire irannien
-      Yahoo (2013-2014) : 3 milliards de comptes compromis.
-      Équifax (2017) : Vol de données personnelles de 147 millions de personnes.
-      WannaCry (2017) : Rançongiciel ayant affecté 200 000 machines dans 150 pays.
+*   [US CERT (LA SOURCE)](https://www.us-cert.gov/)
+*   [The Hacker News](http://thehackernews.com/)
+*   [Zataz](https://www.zataz.com/)
+*   [Reddit NetSec](https://www.reddit.com/r/netsec/)
+*   [Next INpact](https://www.nextinpact.com/) (~payant)
+*   Google Actu
 
-  - Un peu d'histoire
-    - Groupe 1 
-        1. La sécurité informatique avant internet
-        2. La cyber sécurité
-        3. Personnages célèbres
-    - Groupe 2  White Hat, Black Hat et Grey Hat
-        1. Black hat / White hat / Grey hat
-        2. Blue Team / Red Team
-        3. Virus / Malware / Trojan / Ransomware
-        4. Zero Days
-    - Groupe 3
-        1. Encodage vs Chiffrement vs Hachage
-        2. Algorithmes de chiffrement
-        3. Histoire du hachage MD5 et alternatives modernes
-     - Groupe 4
-        1. Quelques hacks notoires
-### Après midi
-  **Les Injections SQL**
+:warning: Important : Vous êtes la première ligne d’informations !
+
+Les grandes catégories à connaître [​](#les-grandes-categories-a-connaitre)
+---------------------------------------------------------------------------
+
+*   Les mots de passe (multi-facteurs, complexité, hashage).
+*   Les failles dans le code (injections, XSS, CSRF, etc.).
+*   Les failles dans les configurations (serveur, application, etc.).
+*   Le social engineering (le maillon faible, l'humain).
+
+:bangbang: Le risque ?
+
+Le risque est la multiplication des failles. Plus vous avez de failles, plus vous avez de risques. C'est là que la sécurité devient un enjeu majeur. Car plus le nombre de failles est importantes plus **la surface d'attaque** est grande.
+
+L'authentication [​](#l-authentication)
+---------------------------------------
+
+Il est possible de sécuriser l'authentification de plusieurs manières :
+
+*   **Mots de passe** : Complexité, hachage, salage.
+*   **Authentification à plusieurs facteurs** : Double authentification, biométrie, OTP.
+*   **Sécurisation des mots de passe** : Bcrypt, Argon2, Scrypt.
+*   **Sécurisation des sessions** : JWT, Cookies sécurisés.
+*   **Authentification unique** : OAuth, OpenID (SSO, Single Sign-On).
+
+Les mots de passe [​](#les-mots-de-passe)
+-----------------------------------------
+
+Zoom sur les mots de passe :
+
+*   Un mot de passe ne doit jamais être stocké en claire.
+*   Un mot de passe doit être haché (non réversible).
+*   Un mot de passe doit être salé (ajout d’une chaîne aléatoire).
+*   Un mot de passe seul n'est souvent pas suffisant (Double authentification).
+
+Les risques du SSO [​](#les-risques-du-sso)
+-------------------------------------------
+
+Le SSO (Single Sign-On) est une méthode d'authentification qui permet à un utilisateur de se connecter avec un seul identifiant et un seul mot de passe pour accéder à plusieurs applications. C'est une méthode très pratique, mais qui peut être dangereuse en cas de compromission (du mot de passe, de l'identifiant, de la session).
+
+En effet, si un attaquant compromet un compte, il peut accéder à toutes les applications liées à ce compte.
+
+Il est donc important de sécuriser le SSO avec des méthodes d'authentification à plusieurs facteurs (2FA, MFA).
+
+### Principes de base [​](#principes-de-base)
+
+Avoir un mot de passe hashé ne suffit pas. Il faut aussi le saler.
+
+![image](https://github.com/user-attachments/assets/cc71985b-55aa-43f7-8698-5e962a9eb294)
+
+
+Le salage est une technique qui permet d’ajouter une chaîne aléatoire au mot de passe avant (ou après) de le hacher. Idéalement le sel est différent par utilisateur, cela permet de rendre le mot de passe unique pour chaque utilisateur.
+
+### Des algorithmes : Le bcrypt [​](#des-algorithmes-le-bcrypt)
+
+Le bcrypt est un algorithme de hachage qui :
+
+*   Intègre le sel.
+*   Intègre un coût (nombre d’itération). Plus le coût est élevé, plus le hachage est long (et donc plus sécurisé).
+*   Intègre un hachage (SHA-256).
+
+Résumé : [​](#resume)
+---------------------
+
+Les mots de passe :
+
+*   Un mot de passe ne doit jamais être stocké en claire. Il doit être haché (non réversible) et salé (ajout d’une chaîne aléatoire).
+*   Le sel peut-être différent pour chaque utilisateur ou global pour tous les utilisateurs. Celui-ci doit être placé avant ou après le mot de passe, il sera utilisé également pour vérifier le mot de passe.
+*   Le bcrypt est un algorithme de hachage qui intègre le sel, le coût et le hachage (SHA-256).
+
+Authentification à plusieurs facteurs [​](#authentification-a-plusieurs-facteurs)
+---------------------------------------------------------------------------------
+
+3 formes d'authentification :
+
+*   Mémorielle qui représente une chose que l'intéressé connaît (un secret),
+*   Matérielle qui se réfère à quelque chose qu'il possède (un objet),
+*   Corporelle qui utilise un trait physique de l'utilisateur (une biométrie).
+
+Des **outils** :
+
+*   **Mot de passe :** Un mot de passe avec un niveau de sécurité suffisant (longueur, caractères spéciaux, majuscules, minuscules, chiffres).
+*   **Application :** OTP (One Time Password) : SMS, Google Authenticator, Authy, Yubikey.
+*   **Objet physique :** U2F (Universal 2nd Factor) : Clé USB, Yubikey.
+*   **Biométrie :** Empreinte digitale, Reconnaissance faciale.
+
+Mais surtout c'est :
+
+*   Permets de sécuriser les mots de passe en ajoutant une couche de sécurité supplémentaire.
+*   Via un secret partagé entre la personne **physique** et le site.
+
+### Les impacts liés à la sécurité [​](#les-impacts-lies-a-la-securite)
+
+La sécurité informatique dans une application c’est un « équilibre »
+
+*   Impact fonctionnel
+*   Limitation de l’expérience utilisateur (UX)
+*   Impact financier
+
+![image](https://github.com/user-attachments/assets/3c253a98-6ea2-4546-aa2b-3d32e004f2f0)
+![image](https://github.com/user-attachments/assets/b70a3e28-a86b-4ae1-abca-1c88f332dc9d)
+
+
+### Les types de failles [​](#les-types-de-failles)
+
+*   L’humain (Social Engineering)
+*   D'accès (physique)
+*   Applicatif (Hack)
+*   L’argent (jusqu’à quel montant une personne donne l’information ?)
+
+### Le Social Engineering [​](#le-social-engineering)
+
+Les gens sont souvent trop confiants. Il faut donc les former régulièrement à la sécurité.
+
+Deux exemples en vidéo :
+
+[Exemple SECTF à la DefCon](https://www.youtube.com/watch?v=-FSLaHKoCNE)
+
+[Call Recreation (@5min, @11min30)](https://share.vidyard.com/watch/i46XF6N6rpR9KMaorihFQw)
+
+Intégrer la sécurité à toutes les étapes [​](#integrer-la-securite-a-toutes-les-etapes)
+---------------------------------------------------------------------------------------
+
+La sécurité c’est un état d’esprit à intégrer.
+
+C’est **votre métier**
+
+![image](https://github.com/user-attachments/assets/84677af8-e7f7-4de7-a1e9-ebdeed73ca87)
+
+
+L'observabilité [​](#l-observabilite)
+-------------------------------------
+
+L'observabilité est un concept qui permet de mesurer et d'analyser le comportement d'un système. On parlera de traçabilité, de logs, de monitoring, de métriques, etc.
+
+La traçabilité est un élément clé de la sécurité. Elle permet de savoir qui a fait quoi, quand et comment.
+
+### Assurer la qualité [​](#assurer-la-qualite)
+
+S'assurer d'une qualité continue du code avec :
+
+*   Des règles à connaître (OWASP).
+*   Des tests unitaires.
+*   Une analyse automatique du code (SonarQube).
+
+### Open Web Application Security Project (OWASP) [​](#open-web-application-security-project-owasp)
+
+> Open Web Application Security Project (OWASP) est une communauté en ligne travaillant sur la sécurité des applications Web. Sa philosophie est d'être à la fois libre et ouverte à tous. Elle a pour vocation de publier des recommandations de sécurisation Web et de proposer aux internautes, administrateurs et entreprises des méthodes et outils de référence permettant de contrôler le niveau de sécurisation de ses applications Web.
+
+> _Source: Wikipédia_
+
+[Site de Owasp](https://owasp.org/)
+
+OWASP liste 10 grandes catégories de failles **à connaître** :
+
+*   **Injection** : Les attaques par injection surviennent lorsque des données non fiables sont envoyées à un interpréteur en tant que commande ou requête. Cela peut se produire avec les injections SQL, les injections OS, etc.
+*   **Violation de Gestion d’Authentification et de Session** : Cela se produit lorsque les attaquants exploitent des vulnérabilités dans les mécanismes d'authentification, comme les sessions mal gérées, les mots de passe faibles ou les identifiants exposés.
+*   **Défaillances cryptographiques** : Les données en transit et au repos (telles que les mots de passe, numéros de carte bleue, dossiers médicaux, informations personnelles et secrets commerciaux) requièrent une protection supplémentaire compte tenu des défaillances cryptographiques possibles (et donc à l’exposition de données sensibles). Cela est particulièrement vrai dans le cas où ces données relèvent de dispositifs réglementés comme le RGPD, le CCPA, etc. Exemple, mot de passe non chiffré en base de données
+*   **Conception non sécurisée / Exposition de données sensibles** : La « conception non sécurisée » est un terme assez large qui regroupe diverses failles et désigne l’absence ou la faiblesse de la conception des contrôles. Exemple d’accès direct à une ressource sans contrôle, manque de contrôle dans un système de routeur Web, Manque de contrôle de saisie.
+*   **Mauvaise configuration de la sécurité** : Manque de validation des types de paramètres, accès trop facile aux ressources non accessibles au public (cloud), configuration incomplète ou trop permissive, messages d’erreurs trop détaillés, contenant des informations sensibles, manque de contrôle sur les données en entrée (filtrage non présent type filter\_input, strip\_tags, htmlspecialchars etc.)
+*   **Utilisation de composants avec des vulnérabilités connues** : L'utilisation de logiciels ou de composants obsolètes et vulnérables peut exposer l'application à des attaques connues. Il est essentiel de maintenir une liste des composants utilisés et de surveiller les vulnérabilités associées. Ancienne version de Laravel, ancienne version de PHP, MySQL non à jour, etc.
+*   **Identification et authentification de mauvaise qualité** : Lorsque les applications n’exécutent pas de manière correcte les fonctions liées à la gestion des sessions ou à l’authentification des utilisateurs, des intrus peuvent compromettre les mots de passe, clés de sécurité ou jetons de sessions et usurper, de manière temporaire ou permanente, les identités et donc les autorisations d’autres utilisateurs. Exemple, absence d’authentification multifacteur, absence de règle de mot de passe, utilisateur par défaut type root / root sur un système, utilisation d’id dans un lien.
+*   **Manque d’intégrité des données et du logiciel** : Cette catégorie englobe les codes et infrastructures qui ne sont pas protégés contre les violations d’intégrité. Exemple, mise à jour sans contrôle, absence de signature numérique, présence de XSS dans un système, aucune protection anti-rejeux (brute force, CSRF)
+*   **Absence de logs serveur et de surveillance** : Permettre un cas d’incident d’avoir de la traçabilité.
+*   **Falsification de requête côté serveur** : Elle permet à un hacker d’inciter l’application côté serveur à envoyer des requêtes à un endroit non prévu. Le serveur est donc capable de faire des requêtes à des endroits non prévus (depuis le coeur de l'application).
+
+### Top 10 : Simplifié [​](#top-10-simplifie)
+
+Le nouveau TOP 10 est très intéressant, car il met en lumière le croisement entre les failles et les risques. Mais il est plus complexe à mémoriser. Il est donc également possible de classer les failles de manière brute :
+
+*   **Injection** : Injection SQL, Shell...
+*   **Violation de Gestion d’Authentification et de Session** : Risque de casser / usurper une authentification ou une session.
+*   **Cross-Site Scripting (XSS)** : Risque d'injection de contenu dans une page pour but de provoquer des actions non désirées dans celle-ci.
+*   **Références directes non sécurisées à un objet** : Accès à de la donnée en spécifiant un `id` directement par un paramètre non filtré.
+*   **Mauvaise configuration Sécurité** : Failles liées aux serveurs Web, applications, base de données ou frameworks.
+*   **Exposition de données sensibles** : Exposition de données sensibles comme les mots de passe, les numéros de carte de paiement ou encore les données personnelles et la nécessité de chiffrer ces données.
+*   **Manque de contrôle d’accès au niveau fonctionnel** : Failles liées aux contrôles d'accès de fonctionnalité.
+*   **Falsification de requête intersite (CSRF)** : Failles liées à l’exécution de requêtes à l’insu de l’utilisateur.
+*   **Utilisation de composants avec des vulnérabilités connues** : Failles liées à l’utilisation de composants tiers vulnérables.
+*   **Redirections et Renvois non validés** : Les redirections et les renvois non validés sont une vulnérabilité profitant d’une faiblesse dans le code et dont l’objectif est de rediriger l’utilisateur sur une page malveillante.
+
+Ce classement est plus simple à mémoriser et permet de se rappeler des failles les plus courantes.
+
+:information_source: Ce classement est en fait la version antérieure du TOP 10 (avant 2020). Il est donc toujours complètement valable.
+
+### Les failles [​](#les-failles)
+
+Le TOP 10 OWASP nous donne les grandes catégories de failles à connaître. Pour entrer dans le détail, voici les failles les plus courantes :
+
+### Les Injections [​](#les-injections)
+
+Injection SQL, Shell...
+
+Souvent la plus connue et la plus rencontrée :
+
+```sql
+
+    SELECT * FROM client WHERE id='" . $_GET["id"] . "'
+```
+
+```
+    http://exemple.com/liste?id='or '1'='1
+```
   
-  Présentation
-  [Présentation injection sql]()
+
+C'est la base de la sécurité
+
+Vous trouverez cet exemple un peu partout. C'est le mauvais exemple en termes de sécurité !
+
+Au passage, si vous écrivez :
+
+```php
+
+    $id = $_GET['id'];
+    $maRequete = "SELECT * FROM client WHERE id='{$id}'"
+```  
+
+⚠️ C'est aussi une faille, celle-ci est identique à la précédente.
+
+#### Comment corriger ? [​](#comment-corriger)
+
+*   Toujours utiliser des requêtes préparées.
+*   Ou utiliser des ORM (Object Relational Mapping) qui font la même chose.
+
+```php
+
+    $maRequete = $pdo->prepare("SELECT * FROM client WHERE id=:id");
+    $maRequete->execute(['id' => $_GET['id']]);
+```
+
+### Violation de Gestion d’Authentification et de Session [​](#violation-de-gestion-d-authentification-et-de-session)
+
+Risque de casser / usurper une authentification ou une session. Comprends notamment le vol de session ou la récupération de mots de passe.
+
+Une session en paramètre GET == ⚠️. Si vous partagez le lien, n'importe qui pourra obtenir votre accès !
+```
+    http://exemple.com/?jsessionid=A2938298D293
+```
+
+
+#### Comment corriger ? [​](#comment-corriger-1)
+
+*   Toujours utiliser des sessions cryptées.
+*   Toujours utiliser des sessions avec un identifiant unique.
+*   Toujours utiliser des sessions avec un TTL (Time To Live).
+
+### Cross-Site Scripting (XSS) [​](#cross-site-scripting-xss)
+
+Risque d'injection de contenu dans une page pour but de provoquer des actions non désirées dans celle-ci.
+
+Les failles XSS sont particulièrement répandues parmi les failles de sécurités Web.
+
+Exécution de code JavaScript sans validation. Le risque ici est qu'il est possible de changer le comportement initialement attendu pour en détourner le sens.
+
+```html
+
+    Votre Nom : <input type="text" name="nom" value="" />
+```
+
+
+```js
+
+    echo "Bonjour " . $_POST['nom'];
+```
+
+
+:bangbang: Attention : Avec ce code, il est possible d'exécuter du code JavaScript. Exemple, si l'utilisateur entre :
+
+```html
+
+    <script>alert('Hello')</script>
+```
+
+
+Le code sera exécuté dans le navigateur de l'utilisateur lors de l'affichage de la page.
+
+Deux types sont à connaître :
+
+*   XSS Persistant (stocké en base de données, dans un logs, et exécuté à chaque affichage de la page)
+*   XSS Reflété (via un lien)
+
+#### Comment corriger ? [​](#comment-corriger-2)
+
+*   Toujours valider les entrées utilisateurs.
+
+```php
+
+    $nom = filter_input(INPUT_POST, 'nom', FILTER_SANITIZE_STRING);
+    // ou
+    $nom = strip_tags($_POST['nom']);
+    // ou
+    $nom = htmlspecialchars($_POST['nom']);
+```
+
+### Références directes non sécurisées à un objet [​](#references-directes-non-securisees-a-un-objet)
+
+Accès à de la donnée en spécifiant un `id` directement par un paramètre non filtré.
+
+C'est également quelque chose de très courant. Si vous attendez en paramètre un mode / un id, veillez à toujours contrôler si la ressource chargée correspond aux droits de l'utilisateur.
+
+Si je change client par … admin ?
+```
+    http://exemple.com/liste?mode=client
+```
+
+
+```sql
+
+    SELECT * FROM client where mode=?
+```
   
-  Exercices Red Team : 
-  - [PortSwigger - SQL Injection](https://portswigger.net/web-security/sql-injection)
-  - [RootMe Injection authentification](https://www.root-me.org/fr/Challenges/Web-Serveur/SQL-injection-Authentification?q=%2Ffr%2FChallenges%2FWeb-Serveur%2FSQL-injection-authentification)
-  - [RootMe Injection String](https://www.root-me.org/fr/Challenges/Web-Serveur/SQL-injection-String)
+
+```php
+
+    $stmt->bindParam(1, $mode);
+```
+  
+
+ℹ️ Requête préparée Vous noterez ici que nous avons une requête « préparé » ça n'empêche pas le danger…
+
+#### Comment corriger ? [​](#comment-corriger-3)
+
+*   Toujours valider les entrées utilisateurs.
+*   Toujours vérifier les droits de l'utilisateur.
+
+```php
+
+    if ($_SESSION['mode'] == 'client') {
+        // On peut charger la ressource
+    } else if ($_SESSION['mode'] == 'admin') {
+        // On peut charger la ressource
+    } else {
+        // On ne peut pas charger la ressource
+    }
+```
+
+### Mauvaise configuration Sécurité [​](#mauvaise-configuration-securite)
+
+Corresponds aux failles de configuration liées aux serveurs Web, applications, base de données ou frameworks.
+
+*   Console d’administration disponible sans authentification en ligne.
+*   Listage des répertoires ([Exemple](https://www.google.fr/search?dcr=0&q=intitle%3A%22Index%20of%22))
+*   Exemples de code non supprimés.
+*   Application en debug.
+
+#### Comment corriger ? [​](#comment-corriger-4)
+
+*   Toujours supprimer les exemples de code.
+*   Toujours supprimer les répertoires de débug.
+*   Lire la documentation.
+
+### Exposition de données sensibles [​](#exposition-de-donnees-sensibles)
+
+Exposition de données sensibles comme les mots de passe, les numéros de carte de paiement ou encore les données personnelles et la nécessité de chiffrer ces données.
+
+*   Espace client sans SSL.
+*   Mot de passe en clair (ou en MD5) dans la base de données.
+*   Sauvegarde de données inutiles.
+*   Données sensibles dans les logs.
+*   Données sensibles en clair dans la base de données.
+
+#### Comment corriger ? [​](#comment-corriger-5)
+
+*   Toujours utiliser le HTTPS.
+*   Toujours utiliser des mots de passe chiffrés (hashés + sel).
+*   Toujours supprimer les données inutiles.
+*   Toujours supprimer les données sensibles des logs.
+*   Protéger les données sensibles dans la base de données (chiffrement).
+
+### Manque de contrôle d’accès au niveau fonctionnel [​](#manque-de-controle-d-acces-au-niveau-fonctionnel)
+
+Failles liées aux contrôles d'accès de fonctionnalité.
+
+*   Page d’admin accessible avec un compte utilisateur.
+*   Mode non filtré (similaire à l’exemple mode={client,admin}).
+
+#### Comment corriger ? [​](#comment-corriger-6)
+
+*   Toujours vérifier les droits de l'utilisateur.
+
+```php
+
+    if ($_SESSION['mode'] == 'client') {
+        // On peut charger la ressource
+    } else if ($_SESSION['mode'] == 'admin') {
+        // On peut charger la ressource
+    } else {
+        // On ne peut pas charger la ressource
+    }
+```
+
+### Falsification de requête intersite (CSRF) [​](#falsification-de-requete-intersite-csrf)
+
+Failles liées à l’exécution de requêtes à l’insu de l’utilisateur.
+
+*   Rejeu de requête déjà joué.
+*   Attaque de type brute force.
+*   Exécution de requête à l’insu de l’utilisateur (exemple : déconnexion / connexion sur un site tierce).
+
+ℹ️ Comment le bloquer ? Ajoutez un identifiant/jeton dans la requête, unique et non réutilisable. Intégré de base dans Laravel.
+
+#### Comment corriger ? [​](#comment-corriger-7)
+
+*   Ajouter un jeton unique dans les formulaires.
+
+```php
+
+    <input type="hidden" name="_token" value="{{ csrf_token() }}">
     
-  Exercices Blue team (débat ouvert) : 
-  - Comment prévenir d'une faille sql ?
-  - Comment nos frameworks font pour se protèger de ces failles ?
-  - Comment réagir suite à une attaque par injections SQL ?
+    // Côté PHP
+    if (isset($_POST['_token']) && $_POST['_token'] == $_SESSION['_token']) {
+        // On peut traiter la requête
+    } else {
+        die();
+    }
+```
 
+### Utilisation de composants avec des vulnérabilités connues [​](#utilisation-de-composants-avec-des-vulnerabilites-connues)
 
-## Mardi
-## Mercredi
-## Jeudi
-Hack ConnectX
-## Vendredi
-Hack ConnectX
+Failles liées à l’utilisation de composants tiers vulnérables.
+
+*   CMS non à jour.
+*   Apache / Tomcat non patchés.
+*   Librairies XYZ non à jour.
+*   Version de PHP non à jour.
+*   Framework non à jour.
+
+#### Comment corriger ? [​](#comment-corriger-8)
+
+*   Toujours mettre à jour les composants tiers.
+*   Ne pas utiliser de vieux frameworks (exemple PHP 4, ou Symfony 1.4)
+
+### Redirections et Renvois non validés [​](#redirections-et-renvois-non-valides)
+
+Les redirections et les renvois non validés sont une vulnérabilité profitant d’une faiblesse dans le code et dont l’objectif est de rediriger l’utilisateur sur une page malveillante
+
+*   Utilisation de votre site comme « masque » dans du phishing
+
+_Exemple :_
+
+    http://www.shop-vdt.com/login.php?goto=evil.com/login
+
+1  
+
+#### Comment corriger ? [​](#comment-corriger-9)
+
+*   Toujours valider les entrées utilisateurs.
+*   Filtrer les liens possibles.
+
+```php
+
+    // Autorise uniquement les redirections vers le site
+    if (preg_match('/^https?:\/\/shop-vdt\.com\//', $_GET['goto'])) {
+        header('Location: ' . $_GET['goto']);
+    } else {
+        die();
+    }
+
+```
+
+### Mais, une faille c’est quoi ? [​](#mais-une-faille-c-est-quoi)
+
+![Une faille](/assets/faille.h5-JkXzS.png)
+
+L'idée d'OWASP, c'est de former pour comprendre les failles afin de ne plus les produire involontairement… Et surtout avec OWASP on parle de **vulnérabilité, et non de risque**.
+
+Les outils OWASP [​](#les-outils-owasp)
+---------------------------------------
+
+*   [OWASP Juice Shop (Formation, JavaScript)](https://owasp.org/www-project-juice-shop/)
+*   WebGoat (Formation, Java)
+*   WebScarab (Audit)
+*   OWASP Testing guide (Guide pour voir le niveau de sécu)
+*   OWASP Code Review guide (Méthode d’audit)
+
+La formation [​](#la-formation)
+-------------------------------
+
+En cybersécurité, il est important de rappeler que la formation des employés est primordiale. Cette formation doit être :
+
+*   Régulière (tous les ans).
+*   Adaptée à l'entreprise (pas de formation générique).
+*   Prendre plusieurs formes (phishing fictif, formation en ligne, formation en présentiel).
+
+La formation prend également la forme de **sensibilisation** :
+
+*   Affichage de consignes de sécurité.
+*   Sensibilisation aux risques.
+*   Formation aux bonnes pratiques.
+*   Formation sur les mots de passe.
+*   Chocoblast (technique pour rappeler aux utilisateurs l'importance de verrouiller leur session).
+
+Synthèse OWASP [​](#synthese-owasp)
+-----------------------------------
+
+![](/assets/tableau.P1lFRkSb.png)
