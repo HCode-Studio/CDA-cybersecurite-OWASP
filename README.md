@@ -68,7 +68,7 @@ L'authentication [​](#l-authentication)
 Il est possible de sécuriser l'authentification de plusieurs manières :
 
 *   **Mots de passe** : Complexité, hachage, salage.
-*   **Authentification à plusieurs facteurs** : Double authentification, biométrie, OTP.
+*   **Authentification à plusieurs facteurs** : Double authentification, biométrie, OTP (mot de passe à usage unique).
 *   **Sécurisation des mots de passe** : Bcrypt, Argon2, Scrypt.
 *   **Sécurisation des sessions** : JWT, Cookies sécurisés.
 *   **Authentification unique** : OAuth, OpenID (SSO, Single Sign-On).
