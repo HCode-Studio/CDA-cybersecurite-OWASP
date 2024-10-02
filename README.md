@@ -490,8 +490,6 @@ _Exemple :_
 
     http://www.shop-vdt.com/login.php?goto=evil.com/login
 
-1  
-
 #### Comment corriger ? [​](#comment-corriger-9)
 
 *   Toujours valider les entrées utilisateurs.
@@ -519,11 +517,11 @@ Les outils OWASP [​](#les-outils-owasp)
 ---------------------------------------
 
 *   [OWASP Juice Shop (Formation, JavaScript)](https://owasp.org/www-project-juice-shop/)
-*   WebGoat (Formation, Java)
-*   WebScarab (Audit)
-*   OWASP Testing guide (Guide pour voir le niveau de sécu)
-*   OWASP Code Review guide (Méthode d’audit)
-*   OWASP ZAP (un scanner de sécurité d'application Web open source)
+*   [WebGoat (Formation, Java)](https://owasp.org/www-project-webgoat/)
+*   [WebScarab (Audit)](https://github.com/OWASP/OWASP-WebScarab) (Projet archivé depuis le mois d'avril 2024)
+*   [OWASP Testing guide (Guide pour voir le niveau de sécu)](https://github.com/OWASP/wstg/tree/master/document)
+*   [OWASP Code Review guide (Méthode d’audit)](https://owasp.org/www-project-code-review-guide/assets/OWASP_Code_Review_Guide_v2.pdf)
+*   [OWASP ZAP (un scanner de sécurité d'application Web open source)](https://www.zaproxy.org/)
 
 La formation [​](#la-formation)
 -------------------------------
