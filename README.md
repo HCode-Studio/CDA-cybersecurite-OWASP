@@ -3,7 +3,7 @@ OWASP
 
 Table des matières
 
-*   [Comment se tenir à jour ?](#comment-se-tenir-a-jour-)
+*   [Comment se tenir à jour ?](#comment-se-tenir-à-jour-)
 *   [Les grandes catégories à connaître](#les-grandes-categories-a-connaitre)
 *   [L'authentication](#l-authentication)
 *   [Les mots de passe](#les-mots-de-passe)
