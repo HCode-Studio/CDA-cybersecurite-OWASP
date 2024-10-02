@@ -3,7 +3,7 @@ OWASP
 
 Table des matières
 
-*   [Comment se tenir à jour ?](#comment-se-tenir-a-jour)
+*   [Comment se tenir à jour ?](#comment-se-tenir-a-jour-)
 *   [Les grandes catégories à connaître](#les-grandes-categories-a-connaitre)
 *   [L'authentication](#l-authentication)
 *   [Les mots de passe](#les-mots-de-passe)
@@ -36,8 +36,7 @@ Table des matières
 *   [La formation](#la-formation)
 *   [Synthèse OWASP](#synthese-owasp)
 
-Comment se tenir à jour ? [​](#comment-se-tenir-a-jour)
--------------------------------------------------------
+## Comment se tenir à jour ?
 
 Prévenir plutôt que guérir… Quelques sites à surveiller :
 
@@ -50,8 +49,7 @@ Prévenir plutôt que guérir… Quelques sites à surveiller :
 
 :warning: Important : Vous êtes la première ligne d’informations !
 
-Les grandes catégories à connaître [​](#les-grandes-categories-a-connaitre)
----------------------------------------------------------------------------
+## Les grandes catégories à connaître
 
 *   Les mots de passe (multi-facteurs, complexité, hashage).
 *   Les failles dans le code (injections, XSS, CSRF, etc.).
@@ -62,8 +60,7 @@ Les grandes catégories à connaître [​](#les-grandes-categories-a-connaitre)
 
 Le risque est la multiplication des failles. Plus vous avez de failles, plus vous avez de risques. C'est là que la sécurité devient un enjeu majeur. Car plus le nombre de failles est importantes plus **la surface d'attaque** est grande.
 
-L'authentication [​](#l-authentication)
----------------------------------------
+## L'authentication
 
 Il est possible de sécuriser l'authentification de plusieurs manières :
 
@@ -73,8 +70,7 @@ Il est possible de sécuriser l'authentification de plusieurs manières :
 *   **Sécurisation des sessions** : JWT, Cookies sécurisés.
 *   **Authentification unique** : OAuth, OpenID (SSO, Single Sign-On).
 
-Les mots de passe [​](#les-mots-de-passe)
------------------------------------------
+## Les mots de passe 
 
 Zoom sur les mots de passe :
 
@@ -83,8 +79,7 @@ Zoom sur les mots de passe :
 *   Un mot de passe doit être salé (ajout d’une chaîne aléatoire).
 *   Un mot de passe seul n'est souvent pas suffisant (Double authentification).
 
-Les risques du SSO [​](#les-risques-du-sso)
--------------------------------------------
+## Les risques du SSO
 
 Le SSO (Single Sign-On) est une méthode d'authentification qui permet à un utilisateur de se connecter avec un seul identifiant et un seul mot de passe pour accéder à plusieurs applications. C'est une méthode très pratique, mais qui peut être dangereuse en cas de compromission (du mot de passe, de l'identifiant, de la session).
 
@@ -92,7 +87,7 @@ En effet, si un attaquant compromet un compte, il peut accéder à toutes les ap
 
 Il est donc important de sécuriser le SSO avec des méthodes d'authentification à plusieurs facteurs (2FA, MFA).
 
-### Principes de base [​](#principes-de-base)
+### Principes de base
 
 Avoir un mot de passe hashé ne suffit pas. Il faut aussi le saler.
 
@@ -101,7 +96,7 @@ Avoir un mot de passe hashé ne suffit pas. Il faut aussi le saler.
 
 Le salage est une technique qui permet d’ajouter une chaîne aléatoire au mot de passe avant (ou après) de le hacher. Idéalement le sel est différent par utilisateur, cela permet de rendre le mot de passe unique pour chaque utilisateur.
 
-### Des algorithmes : Le bcrypt [​](#des-algorithmes-le-bcrypt)
+### Des algorithmes : Le bcrypt
 
 Le bcrypt est un algorithme de hachage qui :
 
@@ -109,8 +104,7 @@ Le bcrypt est un algorithme de hachage qui :
 *   Intègre un coût (nombre d’itération). Plus le coût est élevé, plus le hachage est long (et donc plus sécurisé).
 *   Intègre un hachage (SHA-256).
 
-Résumé : [​](#resume)
----------------------
+## Résumé :
 
 Les mots de passe :
 
@@ -118,8 +112,7 @@ Les mots de passe :
 *   Le sel peut-être différent pour chaque utilisateur ou global pour tous les utilisateurs. Celui-ci doit être placé avant ou après le mot de passe, il sera utilisé également pour vérifier le mot de passe.
 *   Le bcrypt est un algorithme de hachage qui intègre le sel, le coût et le hachage (SHA-256).
 
-Authentification à plusieurs facteurs [​](#authentification-a-plusieurs-facteurs)
----------------------------------------------------------------------------------
+## Authentification à plusieurs facteurs
 
 3 formes d'authentification :
 
@@ -139,7 +132,7 @@ Mais surtout c'est :
 *   Permets de sécuriser les mots de passe en ajoutant une couche de sécurité supplémentaire.
 *   Via un secret partagé entre la personne **physique** et le site.
 
-### Les impacts liés à la sécurité [​](#les-impacts-lies-a-la-securite)
+### Les impacts liés à la sécurité
 
 La sécurité informatique dans une application c’est un « équilibre »
 
@@ -151,14 +144,14 @@ La sécurité informatique dans une application c’est un « équilibre »
 ![image](https://github.com/user-attachments/assets/b70a3e28-a86b-4ae1-abca-1c88f332dc9d)
 
 
-### Les types de failles [​](#les-types-de-failles)
+### Les types de failles
 
 *   L’humain (Social Engineering)
 *   D'accès (physique)
 *   Applicatif (Hack)
 *   L’argent (jusqu’à quel montant une personne donne l’information ?)
 
-### Le Social Engineering [​](#le-social-engineering)
+### Le Social Engineering
 
 Les gens sont souvent trop confiants. Il faut donc les former régulièrement à la sécurité.
 
@@ -168,8 +161,7 @@ Deux exemples en vidéo :
 
 [Call Recreation (@5min, @11min30)](https://share.vidyard.com/watch/i46XF6N6rpR9KMaorihFQw)
 
-Intégrer la sécurité à toutes les étapes [​](#integrer-la-securite-a-toutes-les-etapes)
----------------------------------------------------------------------------------------
+## Intégrer la sécurité à toutes les étapes 
 
 La sécurité c’est un état d’esprit à intégrer.
 
@@ -178,8 +170,7 @@ C’est **votre métier**
 ![image](https://github.com/user-attachments/assets/84677af8-e7f7-4de7-a1e9-ebdeed73ca87)
 
 
-L'observabilité [​](#l-observabilite)
--------------------------------------
+## L'observabilité
 
 L'observabilité est un concept qui permet de mesurer et d'analyser le comportement d'un système. On parlera de traçabilité, de logs, de monitoring, de métriques, etc.
 
@@ -233,11 +224,11 @@ Ce classement est plus simple à mémoriser et permet de se rappeler des failles
 
 :information_source: Ce classement est en fait la version antérieure du TOP 10 (avant 2020). Il est donc toujours complètement valable.
 
-### Les failles [​](#les-failles)
+### Les failles
 
 Le TOP 10 OWASP nous donne les grandes catégories de failles à connaître. Pour entrer dans le détail, voici les failles les plus courantes :
 
-### Les Injections [​](#les-injections)
+### Les Injections
 
 Injection SQL, Shell...
 
@@ -267,7 +258,7 @@ Au passage, si vous écrivez :
 
 ⚠️ C'est aussi une faille, celle-ci est identique à la précédente.
 
-#### Comment corriger ? [​](#comment-corriger)
+#### Comment corriger ? 
 
 *   Toujours utiliser des requêtes préparées.
 *   Ou utiliser des ORM (Object Relational Mapping) qui font la même chose.
@@ -288,13 +279,13 @@ Une session en paramètre GET == ⚠️. Si vous partagez le lien, n'importe qui
 ```
 
 
-#### Comment corriger ? [​](#comment-corriger-1)
+#### Comment corriger ?
 
 *   Toujours utiliser des sessions chiffrées.
 *   Toujours utiliser des sessions avec un identifiant unique.
 *   Toujours utiliser des sessions avec un TTL (Time To Live).
 
-### Cross-Site Scripting (XSS) [​](#cross-site-scripting-xss)
+### Cross-Site Scripting (XSS)
 
 Risque d'injection de contenu dans une page pour but de provoquer des actions non désirées dans celle-ci.
 
@@ -329,7 +320,7 @@ Deux types sont à connaître :
 *   XSS Persistant (stocké en base de données, dans un logs, et exécuté à chaque affichage de la page)
 *   XSS Reflété (via un lien)
 
-#### Comment corriger ? [​](#comment-corriger-2)
+#### Comment corriger ?
 
 *   Toujours valider les entrées utilisateurs.
 
@@ -342,7 +333,7 @@ Deux types sont à connaître :
     $nom = htmlspecialchars($_POST['nom']);
 ```
 
-### Références directes non sécurisées à un objet [​](#references-directes-non-securisees-a-un-objet)
+### Références directes non sécurisées à un objet
 
 Accès à de la donnée en spécifiant un `id` directement par un paramètre non filtré.
 
@@ -368,7 +359,7 @@ Si je change client par … admin ?
 
 ℹ️ Requête préparée Vous noterez ici que nous avons une requête « préparé » ça n'empêche pas le danger…
 
-#### Comment corriger ? [​](#comment-corriger-3)
+#### Comment corriger ?
 
 *   Toujours valider les entrées utilisateurs.
 *   Toujours vérifier les droits de l'utilisateur.
@@ -384,7 +375,7 @@ Si je change client par … admin ?
     }
 ```
 
-### Mauvaise configuration Sécurité [​](#mauvaise-configuration-securite)
+### Mauvaise configuration Sécurité
 
 Corresponds aux failles de configuration liées aux serveurs Web, applications, base de données ou frameworks.
 
@@ -393,13 +384,13 @@ Corresponds aux failles de configuration liées aux serveurs Web, applications, 
 *   Exemples de code non supprimés.
 *   Application en debug.
 
-#### Comment corriger ? [​](#comment-corriger-4)
+#### Comment corriger ?
 
 *   Toujours supprimer les exemples de code.
 *   Toujours supprimer les répertoires de débug.
 *   Lire la documentation.
 
-### Exposition de données sensibles [​](#exposition-de-donnees-sensibles)
+### Exposition de données sensibles
 
 Exposition de données sensibles comme les mots de passe, les numéros de carte de paiement ou encore les données personnelles et la nécessité de chiffrer ces données.
 
@@ -417,14 +408,14 @@ Exposition de données sensibles comme les mots de passe, les numéros de carte 
 *   Toujours supprimer les données sensibles des logs.
 *   Protéger les données sensibles dans la base de données (chiffrement).
 
-### Manque de contrôle d’accès au niveau fonctionnel [​](#manque-de-controle-d-acces-au-niveau-fonctionnel)
+### Manque de contrôle d’accès au niveau fonctionnel
 
 Failles liées aux contrôles d'accès de fonctionnalité.
 
 *   Page d’admin accessible avec un compte utilisateur.
 *   Mode non filtré (similaire à l’exemple mode={client,admin}).
 
-#### Comment corriger ? [​](#comment-corriger-6)
+#### Comment corriger ?
 
 *   Toujours vérifier les droits de l'utilisateur.
 
@@ -439,7 +430,7 @@ Failles liées aux contrôles d'accès de fonctionnalité.
     }
 ```
 
-### Falsification de requête intersite (CSRF) [​](#falsification-de-requete-intersite-csrf)
+### Falsification de requête intersite (CSRF)
 
 Failles liées à l’exécution de requêtes à l’insu de l’utilisateur.
 
@@ -449,7 +440,7 @@ Failles liées à l’exécution de requêtes à l’insu de l’utilisateur.
 
 ℹ️ Comment le bloquer ? Ajoutez un identifiant/jeton dans la requête, unique et non réutilisable. Intégré de base dans Laravel.
 
-#### Comment corriger ? [​](#comment-corriger-7)
+#### Comment corriger ?
 
 *   Ajouter un jeton unique dans les formulaires.
 
@@ -465,7 +456,7 @@ Failles liées à l’exécution de requêtes à l’insu de l’utilisateur.
     }
 ```
 
-### Utilisation de composants avec des vulnérabilités connues [​](#utilisation-de-composants-avec-des-vulnerabilites-connues)
+### Utilisation de composants avec des vulnérabilités connues
 
 Failles liées à l’utilisation de composants tiers vulnérables.
 
@@ -480,7 +471,7 @@ Failles liées à l’utilisation de composants tiers vulnérables.
 *   Toujours mettre à jour les composants tiers.
 *   Ne pas utiliser de vieux frameworks (exemple PHP 4, ou Symfony 1.4)
 
-### Redirections et Renvois non validés [​](#redirections-et-renvois-non-valides)
+### Redirections et Renvois non validés
 
 Les redirections et les renvois non validés sont une vulnérabilité profitant d’une faiblesse dans le code et dont l’objectif est de rediriger l’utilisateur sur une page malveillante
 
@@ -490,7 +481,7 @@ _Exemple :_
 
     http://www.shop-vdt.com/login.php?goto=evil.com/login
 
-#### Comment corriger ? [​](#comment-corriger-9)
+#### Comment corriger ?
 
 *   Toujours valider les entrées utilisateurs.
 *   Filtrer les liens possibles.
@@ -506,15 +497,14 @@ _Exemple :_
 
 ```
 
-### Mais, une faille c’est quoi ? [​](#mais-une-faille-c-est-quoi)
+### Mais, une faille c’est quoi ?
 
 ![image](https://github.com/user-attachments/assets/ac12e5d0-a7b9-4b04-80f4-f8da065cdb02)
 
 
 L'idée d'OWASP, c'est de former pour comprendre les failles afin de ne plus les produire involontairement… Et surtout avec OWASP on parle de **vulnérabilité, et non de risque**.
 
-Les outils OWASP [​](#les-outils-owasp)
----------------------------------------
+## Les outils OWASP
 
 *   [OWASP Juice Shop (Formation, JavaScript)](https://owasp.org/www-project-juice-shop/)
 *   [WebGoat (Formation, Java)](https://owasp.org/www-project-webgoat/)
@@ -523,8 +513,7 @@ Les outils OWASP [​](#les-outils-owasp)
 *   [OWASP Code Review guide (Méthode d’audit)](https://owasp.org/www-project-code-review-guide/assets/OWASP_Code_Review_Guide_v2.pdf)
 *   [OWASP ZAP (un scanner de sécurité d'application Web open source)](https://www.zaproxy.org/)
 
-La formation [​](#la-formation)
--------------------------------
+## La formation
 
 En cybersécurité, il est important de rappeler que la formation des employés est primordiale. Cette formation doit être :
 
@@ -540,8 +529,7 @@ La formation prend également la forme de **sensibilisation** :
 *   Formation sur les mots de passe.
 *   Chocoblast (technique pour rappeler aux utilisateurs l'importance de verrouiller leur session).
 
-Synthèse OWASP [​](#synthese-owasp)
------------------------------------
+Synthèse OWASP
 
 ![image](https://github.com/user-attachments/assets/b0704d65-6200-4124-a680-1a281f21c137)
 
