@@ -14,9 +14,11 @@
 ## **Ressources tutoriel pour OWASP ZAP**
   - [Tutoriel OWASP ZAP : Guide Complet pour Débutants](https://www.youtube.com/watch?v=7ABK_nI5Lrs)
 
-## **Exercice Pratique avec bWAPP et Docker**
+## **Exercice Pratique avec bWAPP**
 
 Apprendre à utiliser OWASP ZAP en pratiquant sur des applications web vulnérables.
+
+**bWAPP (buggy Web Application)** est une application web délibérément vulnérable conçue pour aider les développeurs, les experts en sécurité et les étudiants à apprendre les concepts de la sécurité web. L'application comprend plus de 100 vulnérabilités, couvrant divers aspects tels que les injections SQL, XSS, CSRF, et bien d'autres. bWAPP est idéale pour pratiquer les tests de pénétration et acquérir des compétences pratiques en sécurité informatique dans un environnement sécurisé et contrôlé.
 
 - **Installation de bWAPP avec Docker** :
   
@@ -35,5 +37,6 @@ Apprendre à utiliser OWASP ZAP en pratiquant sur des applications web vulnérab
 - **Utilisation de ZAP pour Scanner bWAPP** :
   - Configurez votre navigateur pour utiliser ZAP comme proxy.
   - Utilisez le Spider de ZAP pour explorer bWAPP.
+  - Ajouter les différents plugins pour orienter vos scans
   - Lancez des scans actifs pour identifier les vulnérabilités.
   - Documentez les failles découvertes et proposez des correctifs.
