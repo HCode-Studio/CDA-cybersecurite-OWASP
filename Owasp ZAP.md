@@ -16,7 +16,7 @@
 
 ## **Exercice Pratique avec bWAPP et Docker**
 
-**Enoncé** : Apprendre à utiliser OWASP ZAP en pratiquant sur des applications web vulnérables.
+Apprendre à utiliser OWASP ZAP en pratiquant sur des applications web vulnérables.
 
 - **Installation de bWAPP avec Docker** :
   
