@@ -13,9 +13,6 @@
 
 ## **Ressources tutoriel pour OWASP ZAP**
   - [Tutoriel OWASP ZAP : Guide Complet pour Débutants](https://www.youtube.com/watch?v=7ABK_nI5Lrs)
-  - [Tutoriel Introduction à OWASP ZAP](https://www.youtube.com/watch?v=wUB1Tlqipi0)
-  - [Exemple de Scan Automatisé avec OWASP ZAP](https://www.youtube.com/watch?v=TVyIRr5AY_I)
-  - [Utilisation Avancée de l'API ZAP](https://www.youtube.com/watch?v=UBWmegya8zI)
 
 ## **Exercice Pratique avec bWAPP et Docker**
 
