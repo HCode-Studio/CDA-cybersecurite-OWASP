@@ -40,3 +40,6 @@ Apprendre à utiliser OWASP ZAP en pratiquant sur des applications web vulnérab
   - Ajouter les différents plugins pour orienter vos scans
   - Lancez des scans actifs pour identifier les vulnérabilités.
   - Documentez les failles découvertes et proposez des correctifs.
+ 
+
+Pensez à jeter un oeil à la [documentation de ZAP](https://www.zaproxy.org/docs/)
